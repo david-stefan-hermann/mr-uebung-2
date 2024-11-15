@@ -15,6 +15,18 @@
         <a-light type="ambient" color="#ffffff" intensity="0.5"></a-light>
         <a-light type="directional" position="1 2 -1" intensity="1" cast-shadow="true"></a-light>
 
+        <!-- Assets -->
+        <a-assets>
+            <a-asset-item id="serverModel" src="models/server.obj"></a-asset-item>
+            <img id="starSky" src="hdr/HDR_blue_nebulae-1.jpg">
+        </a-assets>
+        
+        <!-- Skybox -->
+        <a-sky src="#starSky"></a-sky>
+
+        <!-- Custom Model -->
+        <a-entity obj-model="#serverModel" position="0 0 -5" scale="1 1 1" shadow="cast: true"></a-entity>
+
         <!-- Ground -->
         <a-plane position="0 0 -3" rotation="-90 0 0" width="10" height="10" color="#7BC8A4"
             shadow="receive: true"></a-plane>
