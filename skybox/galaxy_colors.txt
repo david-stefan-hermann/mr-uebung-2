@@ -1,0 +1,5 @@
+galaxy-1: #2c1924
+galaxy-2: #08080d
+galaxy-3: #080416
+galaxy-4: #0a062c
+galaxy-5: #3a191b
