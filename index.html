@@ -9,16 +9,79 @@
 </head>
 
 <body>
-    <a-scene>
-        <!-- Camera and Lighting -->
+    <a-scene shadow="type: pcfsoft">
+        <!-- Camera -->
         <a-camera position="0 1.6 0"></a-camera>
-        <a-light type="ambient" color="#ffffff" intensity="1"></a-light>
-        <a-light type="directional" position="1 2 -1" intensity="3" cast-shadow="true"></a-light>
+
+        <!-- Light -->
+        <a-light type="ambient" color="#FFF" intensity="1.0"></a-light>
+        <a-entity light="
+            type: directional; 
+            intensity: 1; 
+            castShadow: true; 
+            shadowMapHeight: 2048; 
+            shadowMapWidth: 2048; 
+            shadowCameraVisible: false; 
+            shadowCameraTop: 10;
+            shadowCameraRight: 10;
+            shadowCameraBottom: -10;
+            shadowCameraLeft: -10;
+            shadowCameraNear: 0.5;
+            shadowCameraFar: 500;
+            "
+            position="-11 7 -8">
+        </a-entity>
 
         <!-- Assets -->
         <a-assets>
             <a-asset-item id="serverModel" src="models/server.obj"></a-asset-item>
-            <img id="starSky" src="hdr/HDR_blue_nebulae-1.jpg">
+
+            <a-img id="skyBox" src="hdr/autumn_field_puresky_4k.jpg"></a-img>
+
+            <a-cubemap id="galaxy-1">
+                <img src="skybox/galaxy-1/right.jpg">
+                <img src="skybox/galaxy-1/left.jpg">
+                <img src="skybox/galaxy-1/top.jpg">
+                <img src="skybox/galaxy-1/bottom.jpg">
+                <img src="skybox/galaxy-1/front.jpg">
+                <img src="skybox/galaxy-1/back.jpg">
+            </a-cubemap>
+
+            <a-cubemap id="galaxy-2">
+                <img src="skybox/galaxy-2/right.jpg">
+                <img src="skybox/galaxy-2/left.jpg">
+                <img src="skybox/galaxy-2/top.jpg">
+                <img src="skybox/galaxy-2/bottom.jpg">
+                <img src="skybox/galaxy-2/front.jpg">
+                <img src="skybox/galaxy-2/back.jpg">
+            </a-cubemap>
+
+            <a-cubemap id="galaxy-3">
+                <img src="skybox/galaxy-3/right.jpg">
+                <img src="skybox/galaxy-3/left.jpg">
+                <img src="skybox/galaxy-3/top.jpg">
+                <img src="skybox/galaxy-3/bottom.jpg">
+                <img src="skybox/galaxy-3/front.jpg">
+                <img src="skybox/galaxy-3/back.jpg">
+            </a-cubemap>
+
+            <a-cubemap id="galaxy-4">
+                <img src="skybox/galaxy-4/right.jpg">
+                <img src="skybox/galaxy-4/left.jpg">
+                <img src="skybox/galaxy-4/top.jpg">
+                <img src="skybox/galaxy-4/bottom.jpg">
+                <img src="skybox/galaxy-4/front.jpg">
+                <img src="skybox/galaxy-4/back.jpg">
+            </a-cubemap>
+
+            <a-cubemap id="galaxy-5">
+                <img src="skybox/galaxy-5/right.jpg">
+                <img src="skybox/galaxy-5/left.jpg">
+                <img src="skybox/galaxy-5/top.jpg">
+                <img src="skybox/galaxy-5/bottom.jpg">
+                <img src="skybox/galaxy-5/front.jpg">
+                <img src="skybox/galaxy-5/back.jpg">
+            </a-cubemap>
 
             <!-- Painted Metal Material Maps -->
             <img id="pmRoughnessMap"
@@ -67,30 +130,41 @@
             repeat: 20 20;
             displacementScale: 0.05;
             metalness: 0.2;
-            roughness: 0.2;
+            roughness: 0.1;
             "></a-mixin>
         </a-assets>
 
         <!-- Skybox -->
-        <a-sky src="#starSky"></a-sky>
+        <a-sky src="#skyBox"></a-sky>
 
-        <!-- Custom Model -->
-        <a-entity obj-model="#serverModel" position="0 0 -5" scale="1 1 1" shadow="cast: true"></a-entity>
 
-        <!-- Cubes on a Circle -->
-        <a-box position="3 0.5 0" rotation="0 45 0" width="1" height="1" depth="1" shadow="cast: true"
-            mixin="paintedMetal"></a-box>
-        <a-cone position="0.927 0.5 2.853" radius-bottom="0.5" radius-top="0" shadow="cast: true"
-            mixin="paintedMetal"></a-cone>
-        <a-box position="-2.427 0.5 1.763" rotation="0 45 0" width="1" height="1" depth="1" shadow="cast: true"
-            mixin="paintedMetal"></a-box>
-        <a-box position="-2.427 0.5 -1.763" rotation="0 45 0" width="1" height="1" depth="1" shadow="cast: true"
-            mixin="paintedMetal"></a-box>
-        <a-box position="0.927 0.5 -2.853" rotation="0 45 0" width="1" height="1" depth="1" shadow="cast: true"
-            mixin="paintedMetal"></a-box>
+        <!-- Spheres with reflection on a circle -->
+        <a-entity position="0 1.5 0" rotation="0 0 0"
+            animation="property: rotation; to: 0 360; easing: linear; loop: true; dur: 40000">
+            <a-sphere position="5 -0.1 0" radius="0.8"
+                material="envMap:#galaxy-1; metalness:1.0; roughness:0.0; emissive: #7BC8A4; emissiveIntensity: 0.1"
+                shadow="cast: true">
+                <a-light type="point" color="#7BC8A4" intensity="0.1" distance="10" decay="2"></a-light>
+            </a-sphere>
+            <a-sphere position="1.545 0.1 4.755" radius="0.7"
+                material="envMap:#galaxy-2; metalness:1.0; roughness:0.0; emissive: #7BC8A4; emissiveIntensity: 0.1"
+                shadow="cast: true"></a-sphere>
+            <a-sphere position="-4.045 0 2.938" radius="1"
+                material="envMap:#galaxy-3; metalness:1.0; roughness:0.0; emissive: #7BC8A4; emissiveIntensity: 0.1"
+                shadow="cast: true"></a-sphere>
+            <a-sphere position="-4.045 0.2 -2.938" radius="0.55"
+                material="envMap:#galaxy-4; metalness:1.0; roughness:0.0; emissive: #7BC8A4; emissiveIntensity: 0.1"
+                shadow="cast: true"></a-sphere>
+            <a-sphere position="1.545 0 -4.755" radius="0.65"
+                material="envMap:#galaxy-5; metalness:1.0; roughness:0.0; emissive: #7BC8A4; emissiveIntensity: 0.1"
+                shadow="cast: true"></a-sphere>
+        </a-entity>
+
+        <!-- Test Cube for Shadow Casting -->
+        <a-box position="0 1 -3" width="1" height="1" depth="1" color="#4CC3D9" shadow="cast: true"></a-box>
 
         <!-- Ground -->
-        <a-plane position="0 0 -3" rotation="-90 0 0" width="100" height="100" color="#7BC8A4" shadow="receive: true"
+        <a-plane position="0 0 -3" rotation="-90 0 0" width="100" height="100" color="##212121" shadow="receive: true"
             mixin="slateFloor"></a-plane>
     </a-scene>
 </body>
